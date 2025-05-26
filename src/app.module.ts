@@ -6,6 +6,9 @@ import * as Joi from 'joi';
 import { AppController } from './app.controller';
 import { AppService } from './app.service';
 
+import { ProductsModule } from './modules/products/products.module';
+import { CheckoutModule } from './modules/checkout/checkout.module';
+
 @Module({
   imports: [
     ConfigModule.forRoot({
@@ -40,6 +43,8 @@ import { AppService } from './app.service';
         logging: true, // Mientras se desarrolla
       }),
     }),
+    ProductsModule,
+    CheckoutModule,
   ],
   controllers: [AppController],
   providers: [AppService],
