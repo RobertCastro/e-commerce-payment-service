@@ -1,3 +1,11 @@
+import {
+  Entity,
+  PrimaryGeneratedColumn,
+  Column,
+  CreateDateColumn,
+  UpdateDateColumn,
+} from 'typeorm';
+
 export type TransactionStatus =
   | 'PENDING' // Iniciada, esperando pago
   | 'PROCESSING' // Pago en proceso
@@ -11,17 +19,39 @@ export interface TransactionItem {
   unitPrice: number;
 }
 
+@Entity('transactions')
 export class Transaction {
+  @PrimaryGeneratedColumn('uuid')
   readonly id: string;
+
+  @Column('uuid')
   customerId: string;
+
+  @Column('uuid')
   deliveryId: string;
+
+  @Column('jsonb')
   items: TransactionItem[];
+
+  @Column('decimal', { precision: 10, scale: 2 })
   totalAmount: number;
+
+  @Column('decimal', { precision: 10, scale: 2 })
   shippingCost: number;
+
+  @Column('decimal', { precision: 10, scale: 2 })
   baseFee: number;
+
+  @Column({ type: 'varchar', length: 20 })
   status: TransactionStatus;
+
+  @Column('uuid', { nullable: true })
   wompiTransactionId?: string;
+
+  @CreateDateColumn()
   createdAt: Date;
+
+  @UpdateDateColumn()
   updatedAt: Date;
 
   constructor(

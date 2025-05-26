@@ -1,9 +1,23 @@
+import { Entity, PrimaryGeneratedColumn, Column } from 'typeorm';
+
+@Entity('products')
 export class Product {
+  @PrimaryGeneratedColumn('uuid')
   readonly id: string;
+
+  @Column()
   name: string;
+
+  @Column('text')
   description: string;
+
+  @Column('decimal', { precision: 10, scale: 2 })
   price: number;
+
+  @Column('int')
   stock: number;
+
+  @Column({ name: 'image_url' })
   imageUrl: string;
 
   constructor(
