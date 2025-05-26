@@ -3,6 +3,7 @@ import { TypeOrmModule } from '@nestjs/typeorm';
 import { Product } from './domain/product.entity';
 import { IProductRepository } from './domain/ports/product.repository.port';
 import { PostgresProductRepository } from './infrastructure/persistence/postgres-product.repository';
+import { ListAvailableProductsUseCase } from './application/use-cases/list-available-products.use-case';
 
 @Module({
   imports: [TypeOrmModule.forFeature([Product])],
@@ -14,7 +15,8 @@ import { PostgresProductRepository } from './infrastructure/persistence/postgres
       provide: IProductRepository,
       useClass: PostgresProductRepository,
     },
+    ListAvailableProductsUseCase,
   ],
-  exports: [IProductRepository],
+  exports: [IProductRepository, ListAvailableProductsUseCase],
 })
 export class ProductsModule {}
