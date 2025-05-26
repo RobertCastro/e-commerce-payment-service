@@ -54,6 +54,9 @@ export class Transaction {
   @UpdateDateColumn()
   updatedAt: Date;
 
+  @Column({ nullable: true })
+  wompiId?: string;
+
   constructor(
     id: string,
     customerId: string,
