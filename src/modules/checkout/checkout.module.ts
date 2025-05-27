@@ -26,13 +26,16 @@ import { WompiPaymentGatewayAdapter } from './infrastructure/payment-gateways/wo
 // Casos de uso de aplicación
 import { InitiateCheckoutUseCase } from './application/use-cases/initiate-checkout.use-case';
 
+// controllers
+import { CheckoutController } from './infrastructure/controllers/checkout.controller';
+
 @Module({
   imports: [
     HttpModule,
     TypeOrmModule.forFeature([Transaction, Customer, Delivery]),
     ProductsModule,
   ],
-  controllers: [],
+  controllers: [CheckoutController],
   providers: [
     PostgresTransactionRepository,
     PostgresCustomerRepository,
