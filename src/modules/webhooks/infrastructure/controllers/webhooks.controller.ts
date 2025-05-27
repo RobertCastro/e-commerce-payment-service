@@ -1,6 +1,15 @@
-import { Controller, Post, Body, Logger, HttpException, HttpStatus } from '@nestjs/common';
+import {
+  Controller,
+  Post,
+  Body,
+  Logger,
+  HttpException,
+  HttpStatus,
+  UseGuards,
+} from '@nestjs/common';
 import { HandleWompiEventUseCase } from '../../application/use-cases/handle-wompi-event.use-case';
 import { WompiEventDto } from '../../application/dto/wompi-event.dto';
+import { WompiWebhookGuard } from '../guards/wompi-webhook.guard';
 
 @Controller('webhooks')
 export class WebhooksController {
@@ -9,6 +18,7 @@ export class WebhooksController {
   constructor(private readonly handleEventUseCase: HandleWompiEventUseCase) {}
 
   @Post('wompi')
+  @UseGuards(WompiWebhookGuard)
   async handleWompiWebhook(@Body() payload: WompiEventDto) {
     this.logger.log('Payload de Webhook de Wompi recibido:', JSON.stringify(payload, null, 2));
 
