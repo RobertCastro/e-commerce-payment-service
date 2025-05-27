@@ -4,10 +4,11 @@ import { Product } from './domain/product.entity';
 import { IProductRepository } from './domain/ports/product.repository.port';
 import { PostgresProductRepository } from './infrastructure/persistence/postgres-product.repository';
 import { ListAvailableProductsUseCase } from './application/use-cases/list-available-products.use-case';
+import { ProductsController } from './infrastructure/controllers/products.controller';
 
 @Module({
   imports: [TypeOrmModule.forFeature([Product])],
-  controllers: [],
+  controllers: [ProductsController],
   providers: [
     PostgresProductRepository,
 
