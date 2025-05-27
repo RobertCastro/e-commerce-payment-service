@@ -5,8 +5,8 @@ import { Product } from '../../domain/product.entity';
 import { PostgresProductRepository } from './postgres-product.repository';
 import { IProductRepository } from '../../domain/ports/product.repository.port';
 
-type MockRepository<T = any> = Partial<Record<keyof Repository<T>, jest.Mock>>;
-const createMockRepository = <T = any>(): MockRepository<T> => ({
+type MockRepository<T extends object = any> = Partial<Record<keyof Repository<T>, jest.Mock>>;
+const createMockRepository = <T extends object = any>(): MockRepository<T> => ({
   findOneBy: jest.fn(),
   find: jest.fn(),
   save: jest.fn(),
@@ -43,7 +43,7 @@ describe('PostgresProductRepository', () => {
     it('should call TypeORM findOneBy with correct id', async () => {
       const productId = 'test-uuid';
       const product = new Product(productId, 'Test', 'Desc', 10, 5, 'url');
-      mockTypeOrmRepo.findOneBy.mockReturnValue(Promise.resolve(product));
+      mockTypeOrmRepo.findOneBy?.mockReturnValue(Promise.resolve(product));
 
       const result = await repository.findById(productId);
 
@@ -55,7 +55,7 @@ describe('PostgresProductRepository', () => {
   describe('findAll', () => {
     it('should call TypeORM find', async () => {
       const products = [new Product('1', 'P1', 'D1', 10, 1, 'u1')];
-      mockTypeOrmRepo.find.mockReturnValue(Promise.resolve(products));
+      mockTypeOrmRepo.find?.mockReturnValue(Promise.resolve(products));
 
       const result = await repository.findAll();
 

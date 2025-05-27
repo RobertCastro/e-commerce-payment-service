@@ -28,10 +28,10 @@ export class Product {
     stock: number,
     imageUrl: string,
   ) {
-    if (!id) throw new Error('El ID del producto no puede estar vacío');
-    if (!name) throw new Error('El nombre del producto no puede estar vacío');
-    if (price < 0) throw new Error('El precio del producto no puede ser negativo');
-    if (stock < 0) throw new Error('El stock del producto no puede ser negativo');
+    // if (!id) throw new Error('El ID del producto no puede estar vacío');
+    // if (!name) throw new Error('El nombre del producto no puede estar vacío');
+    // if (price < 0) throw new Error('El precio del producto no puede ser negativo');
+    // if (stock < 0) throw new Error('El stock del producto no puede ser negativo');
 
     this.id = id;
     this.name = name;
