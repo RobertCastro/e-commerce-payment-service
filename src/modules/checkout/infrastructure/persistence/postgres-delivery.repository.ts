@@ -14,4 +14,8 @@ export class PostgresDeliveryRepository implements IDeliveryRepository {
   async save(delivery: Delivery): Promise<void> {
     await this.deliveryRepository.save(delivery);
   }
+
+  async findById(id: string): Promise<Delivery | null> {
+    return this.deliveryRepository.findOneBy({ id });
+  }
 }

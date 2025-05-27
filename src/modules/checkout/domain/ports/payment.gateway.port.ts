@@ -15,21 +15,13 @@ export interface CreatePaymentInput {
   amountInCents: number;
   currency: string;
   customerEmail: string;
-  paymentMethod: {
-    type: 'CARD';
-    token?: string;
-    installments?: number;
-  };
+  paymentMethod: WompiPaymentMethod;
   reference: string;
   customerData: {
     phoneNumber: string;
     fullName: string;
   };
-  shippingAddress: {
-    addressLine1: string;
-    city: string;
-    country: string;
-  };
+  shippingAddress: WompiShippingAddress;
 }
 
 export interface CreatePaymentOutput {
@@ -53,6 +45,24 @@ export interface IPaymentGateway {
   getPaymentStatus(
     gatewayTransactionId: string,
   ): Promise<Result<PaymentStatusOutput, PaymentGatewayError>>;
+}
+
+export interface WompiShippingAddress {
+  addressLine1: string;
+  address_line_2?: string;
+  country: string;
+  region: string;
+  city: string;
+  name: string;
+  phone_number: string;
+  postal_code?: string;
+}
+
+export interface WompiPaymentMethod {
+  type: 'CARD' | 'NEQUI' | 'PSE';
+  token?: string;
+  installments?: number;
+  phone_number?: string;
 }
 
 export const IPaymentGateway = Symbol('IPaymentGateway');
