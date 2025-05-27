@@ -25,6 +25,7 @@ import { WompiPaymentGatewayAdapter } from './infrastructure/payment-gateways/wo
 
 // Casos de uso de aplicación
 import { InitiateCheckoutUseCase } from './application/use-cases/initiate-checkout.use-case';
+import { GetTransactionStatusUseCase } from './application/use-cases/get-transaction-status.use-case';
 
 // controllers
 import { CheckoutController } from './infrastructure/controllers/checkout.controller';
@@ -40,6 +41,7 @@ import { CheckoutController } from './infrastructure/controllers/checkout.contro
     PostgresTransactionRepository,
     PostgresCustomerRepository,
     PostgresDeliveryRepository,
+    GetTransactionStatusUseCase,
 
     {
       provide: ITransactionRepository,
@@ -63,6 +65,11 @@ import { CheckoutController } from './infrastructure/controllers/checkout.contro
 
     InitiateCheckoutUseCase,
   ],
-  exports: [ITransactionRepository, IPaymentGateway, InitiateCheckoutUseCase],
+  exports: [
+    ITransactionRepository,
+    IPaymentGateway,
+    InitiateCheckoutUseCase,
+    GetTransactionStatusUseCase,
+  ],
 })
 export class CheckoutModule {}
