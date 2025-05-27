@@ -57,31 +57,31 @@ export class Transaction {
   @Column({ nullable: true })
   wompiId?: string;
 
-  constructor(
-    id: string,
-    customerId: string,
-    deliveryId: string,
-    items: TransactionItem[],
-    shippingCost: number,
-    baseFee: number,
-  ) {
-    if (!items || items.length === 0) {
-      throw new Error('La lista de items no puede estar vacía');
-    }
+  // constructor(
+  //   id: string,
+  //   customerId: string,
+  //   deliveryId: string,
+  //   items: TransactionItem[],
+  //   shippingCost: number,
+  //   baseFee: number,
+  // ) {
+  //   // if (!items || items.length === 0) {
+  //   //   throw new Error('La lista de items no puede estar vacía');
+  //   // }
 
-    this.id = id;
-    this.customerId = customerId;
-    this.deliveryId = deliveryId;
-    this.items = items;
-    this.shippingCost = shippingCost;
-    this.baseFee = baseFee;
-    // Calculamos el total
-    this.totalAmount =
-      items.reduce((sum, item) => sum + item.quantity * item.unitPrice, 0) + shippingCost + baseFee;
-    this.status = 'PENDING'; // Iniciamos con pendiente.
-    this.createdAt = new Date();
-    this.updatedAt = new Date();
-  }
+  //   this.id = id;
+  //   this.customerId = customerId;
+  //   this.deliveryId = deliveryId;
+  //   this.items = items;
+  //   this.shippingCost = shippingCost;
+  //   this.baseFee = baseFee;
+  //   // Calculamos el total
+  //   this.totalAmount =
+  //     items.reduce((sum, item) => sum + item.quantity * item.unitPrice, 0) + shippingCost + baseFee;
+  //   this.status = 'PENDING'; // Iniciamos con pendiente.
+  //   this.createdAt = new Date();
+  //   this.updatedAt = new Date();
+  // }
 
   approve(wompiId: string): void {
     if (this.status === 'PENDING' || this.status === 'PROCESSING') {
