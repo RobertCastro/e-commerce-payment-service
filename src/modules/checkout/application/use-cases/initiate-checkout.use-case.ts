@@ -89,7 +89,7 @@ export class InitiateCheckoutUseCase {
 
       // 3. Crear la transacción
       const transaction = new Transaction();
-      //   transaction.id = uuidv4();
+      transaction.id = uuidv4();
       transaction.customerId = customer.id;
       transaction.deliveryId = delivery.id;
       transaction.items = transactionItems;
