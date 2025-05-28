@@ -42,7 +42,7 @@ describe('PostgresProductRepository', () => {
   describe('findById', () => {
     it('should call TypeORM findOneBy with correct id', async () => {
       const productId = 'test-uuid';
-      const product = new Product(productId, 'Test', 'Desc', 10, 5, 'url');
+      const product = new Product();
       mockTypeOrmRepo.findOneBy?.mockReturnValue(Promise.resolve(product));
 
       const result = await repository.findById(productId);
@@ -54,7 +54,7 @@ describe('PostgresProductRepository', () => {
 
   describe('findAll', () => {
     it('should call TypeORM find', async () => {
-      const products = [new Product('1', 'P1', 'D1', 10, 1, 'u1')];
+      const products = [new Product()];
       mockTypeOrmRepo.find?.mockReturnValue(Promise.resolve(products));
 
       const result = await repository.findAll();
