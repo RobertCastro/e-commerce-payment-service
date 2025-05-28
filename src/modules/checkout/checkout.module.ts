@@ -1,7 +1,6 @@
 import { Module } from '@nestjs/common';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { HttpModule } from '@nestjs/axios';
-
 import { ProductsModule } from '../products/products.module';
 
 // Entidades de dominio
@@ -25,6 +24,7 @@ import { WompiPaymentGatewayAdapter } from './infrastructure/payment-gateways/wo
 
 // Casos de uso de aplicación
 import { InitiateCheckoutUseCase } from './application/use-cases/initiate-checkout.use-case';
+import { ProcessPaymentUseCase } from './application/use-cases/process-payment.use-case';
 import { GetTransactionStatusUseCase } from './application/use-cases/get-transaction-status.use-case';
 
 // controllers
@@ -39,36 +39,34 @@ import { CheckoutController } from './infrastructure/controllers/checkout.contro
   controllers: [CheckoutController],
   providers: [
     PostgresTransactionRepository,
-    PostgresCustomerRepository,
-    PostgresDeliveryRepository,
-    GetTransactionStatusUseCase,
-
     {
       provide: ITransactionRepository,
       useClass: PostgresTransactionRepository,
     },
+    PostgresCustomerRepository,
     {
       provide: ICustomerRepository,
       useClass: PostgresCustomerRepository,
     },
+    PostgresDeliveryRepository,
     {
       provide: IDeliveryRepository,
       useClass: PostgresDeliveryRepository,
     },
-
     WompiPaymentGatewayAdapter,
-
     {
       provide: IPaymentGateway,
       useClass: WompiPaymentGatewayAdapter,
     },
-
     InitiateCheckoutUseCase,
+    ProcessPaymentUseCase,
+    GetTransactionStatusUseCase,
   ],
   exports: [
     ITransactionRepository,
     IPaymentGateway,
     InitiateCheckoutUseCase,
+    ProcessPaymentUseCase,
     GetTransactionStatusUseCase,
   ],
 })

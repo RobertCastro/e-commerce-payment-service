@@ -28,6 +28,7 @@ export class TransactionDetailDto {
   @IsString()
   status: TransactionStatus;
 
+  @Type(() => Number)
   @IsNumber()
   totalAmount: number;
 
