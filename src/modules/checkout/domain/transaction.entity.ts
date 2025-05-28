@@ -22,7 +22,7 @@ export interface TransactionItem {
 @Entity('transactions')
 export class Transaction {
   @PrimaryGeneratedColumn('uuid')
-  readonly id: string;
+  id: string;
 
   @Column('uuid')
   customerId: string;

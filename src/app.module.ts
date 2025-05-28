@@ -9,6 +9,8 @@ import { AppService } from './app.service';
 import { ProductsModule } from './modules/products/products.module';
 import { CheckoutModule } from './modules/checkout/checkout.module';
 
+import { WebhooksModule } from './modules/webhooks/webhooks.module';
+
 @Module({
   imports: [
     ConfigModule.forRoot({
@@ -29,7 +31,7 @@ import { CheckoutModule } from './modules/checkout/checkout.module';
     }),
     // <-- Configuración de TypeORM
     TypeOrmModule.forRootAsync({
-      imports: [ConfigModule],
+      imports: [ConfigModule, WebhooksModule],
       inject: [ConfigService],
       useFactory: (configService: ConfigService) => ({
         type: 'postgres',
